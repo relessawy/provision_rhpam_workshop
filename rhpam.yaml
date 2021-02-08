@@ -1,0 +1,26 @@
+apiVersion: app.kiegroup.org/v2
+kind: KieApp
+metadata:
+  name: rhpam
+spec:
+  environment: rhpam-authoring
+  commonConfig:
+    adminUser: pamAdmin
+    adminPassword: redhatpam1!
+  objects:
+    console:
+      resources:
+        requests:
+          memory: 6Gi
+        limits:
+          memory: 6Gi
+    servers:
+      - id: kieserver
+        name: kieserver
+        resources:
+          requests:
+            memory: 4Gi
+          limits:
+            memory: 4Gi
+        database:
+          type: mysql
