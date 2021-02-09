@@ -14,7 +14,7 @@ echo Provisioning project $ProjectXX
 
 oc new-project $ProjectXX
 
-echo Creating opertor group in project $ProjectXX
+echo Creating operator group in project $ProjectXX
 
 cp operator_group.yaml ./output/operator_group_$ProjectXX.yaml
 
