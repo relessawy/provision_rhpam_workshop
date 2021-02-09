@@ -18,9 +18,9 @@ echo Creating operator group in project $ProjectXX
 
 cp operator_group.yaml ./output/operator_group_$ProjectXX.yaml
 
-yq w -i ./output/operator_group_$ProjectXX.yaml metadata.namespace $ProjectXX
+yq eval ".metadata.namespace=\"$ProjectXX\"" -i ./output/operator_group_$ProjectXX.yaml 
 
-yq w -i ./output/operator_group_$ProjectXX.yaml spec.targetNamespaces[+] $ProjectXX
+yq eval ".spec.targetNamespaces += [\"$ProjectXX\"]" -i ./output/operator_group_$ProjectXX.yaml 
 
 oc create -f ./output/operator_group_$ProjectXX.yaml
 
@@ -28,7 +28,7 @@ echo subscribing to operator in project $ProjectXX
 
 cp operator_subscribe.yaml ./output/operator_subscribe_$ProjectXX.yaml
 
-yq w -i ./output/operator_subscribe_$ProjectXX.yaml metadata.namespace $ProjectXX
+yq eval ".metadata.namespace=\"$ProjectXX\"" -i ./output/operator_subscribe_$ProjectXX.yaml 
 
 oc create -f ./output/operator_subscribe_$ProjectXX.yaml
 
