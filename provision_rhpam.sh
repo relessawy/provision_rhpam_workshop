@@ -7,7 +7,7 @@ echo Provisioning for users $START to $END
 
 for (( c=$START; c<=$END; c++ ))
   do
-ProjectXX="rhpam-mod";
+ProjectXX="rhpam-user";
 ProjectXX="${ProjectXX}${c}";
 
 echo Provisioning project $ProjectXX
