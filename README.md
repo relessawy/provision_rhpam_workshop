@@ -16,7 +16,7 @@ The script uses yq command-line YAML processor which can be downloaded from this
   
 # Example
 
-When you run the command with this following inputs
+When you run the script with this following inputs
 
 provision_rhpam.sh 1 30 Y
 
@@ -24,8 +24,8 @@ The script will provision users 1 to 30 and also provision the module guides in 
 
 Provisioning for users 1 to 30
 Provisioning project rhpam-user1
-Now using project "rhpam-user1" on server "https://api.cluster-0a30.0a30.example.opentlc.com:6443”.
-Creating opertor group in project rhpam-user1
+Now using project "rhpam-user1" on server "<cluster name>”.
+Creating operator group in project rhpam-user1
 operatorgroup.operators.coreos.com/businessautomation-operator created
 subscribing to operator in project rhpam-user1
 subscription.operators.coreos.com/businessautomation-operator created
