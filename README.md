@@ -5,22 +5,23 @@ Script to provision RH PAM workshop to OpenShift
 
 The script uses yq command-line YAML processor which can be downloaded from this  [repo](https://github.com/mikefarah/yq)
 
-Note: This version supports version 4 of yq
+Note: This version supports version 3 and 4 of yq
 
 # Running the script
 
 - Note that the script expects you to be logged into OCP
 
-- The scripts expects three input paramters
+- The scripts expects four input paramters
   - User From: The first user to be provisioned
   - User To: The last user to be provisioned
   - Provision Guides: Set this parameter to Y if you want the module guides to be provisioned
+  - Use version 4 of yq: Optional parameter if you need to use yq version 4 (default is version 3)
   
 # Example
 
 When you run the script with this following inputs
 
-provision_rhpam.sh 1 30 Y
+provision_rhpam.sh 1 30 Y 4
 
 The script will provision users 1 to 30 and also provision the module guides in the project rhpam-workshop-guides. Following is a sample output
 
