@@ -2,6 +2,7 @@
 START=$1
 END=$2
 PROVISION_GUIDES=$3
+VERSION=$4
 
 echo Provisioning for users $START to $END
 
@@ -18,16 +19,28 @@ echo Creating operator group in project $ProjectXX
 
 cp operator_group.yaml ./output/operator_group_$ProjectXX.yaml
 
-yq eval ".metadata.namespace=\"$ProjectXX\"" -i ./output/operator_group_$ProjectXX.yaml 
-yq eval ".spec.targetNamespaces += [\"$ProjectXX\"]" -i ./output/operator_group_$ProjectXX.yaml 
+if [ $VERSION == 4 ] 
+then
+  #Version 4 of YQ
+  yq eval ".metadata.namespace=\"$ProjectXX\"" -i ./output/operator_group_$ProjectXX.yaml 
+  yq eval ".spec.targetNamespaces += [\"$ProjectXX\"]" -i ./output/operator_group_$ProjectXX.yaml 
+else
+  yq w -i ./output/operator_group_$ProjectXX.yaml metadata.namespace $ProjectXX
+  yq w -i ./output/operator_group_$ProjectXX.yaml spec.targetNamespaces[+] $ProjectXX
+fi
 
 oc create -f ./output/operator_group_$ProjectXX.yaml
 
 echo subscribing to operator in project $ProjectXX
 
 cp operator_subscribe.yaml ./output/operator_subscribe_$ProjectXX.yaml
-
-yq eval ".metadata.namespace=\"$ProjectXX\"" -i ./output/operator_subscribe_$ProjectXX.yaml 
+if [ $VERSION == 4 ] 
+then
+  #Version 4 of YQ
+  yq eval ".metadata.namespace=\"$ProjectXX\"" -i ./output/operator_subscribe_$ProjectXX.yaml 
+else
+  yq w -i ./output/operator_subscribe_$ProjectXX.yaml metadata.namespace $ProjectXX
+fi
 
 oc create -f ./output/operator_subscribe_$ProjectXX.yaml
 
@@ -46,7 +59,7 @@ done
 
 echo request to provision guides is set to $PROVISION_GUIDES
 
-if [[ "$PROVISION_GUIDES" == "Y" ]]
+if [ "$PROVISION_GUIDES" == "Y" ]
 then
 
   sleep 30
